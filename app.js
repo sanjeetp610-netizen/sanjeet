@@ -44,10 +44,12 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const secret = process.env.SECRET || "mysupersecretcode";
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: process.env.SECRET,
+        secret: secret,
     },
     touchAfter: 24 * 3600,
 });
@@ -58,7 +60,7 @@ store.on("error", (err) => {
 
 const sessionOptions = {
     store,
-    secret: process.env.SECRET,
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -67,10 +69,6 @@ const sessionOptions = {
         httpOnly: true,
     },
 };
-
-app.get("/", (req, res) => {
-    res.redirect("/listings");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -86,6 +84,10 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
     next();
+});
+
+app.get("/", (req, res) => {
+    res.redirect("/listings");
 });
 
 //=======>>>>>>>>>>>>>>> USE OF DIFFERENT ROUTERS
