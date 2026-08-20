@@ -104,8 +104,8 @@ app.all("*", (req, res, next) => {
 //Middleware
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "something went wrong!" } = err;
-    res.status(statusCode).render("error.ejs", { message });
-    console.log(err.name);
+    console.error("SERVER ERROR LOG:", err);
+    res.status(statusCode).render("error.ejs", { message: err.message || message });
 });
 
 app.listen(8080, () => {

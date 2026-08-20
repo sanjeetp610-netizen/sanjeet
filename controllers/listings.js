@@ -12,25 +12,30 @@ module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
 };
 
-module.exports.showListing = async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id)
-        .populate({
-            path: "reviews",
-            populate: { path: "author" }
-        })
-        .populate("owner");
+module.exports.showListing = async (req, res, next) => {
+    try {
+        let { id } = req.params;
+        const listing = await Listing.findById(id)
+            .populate({
+                path: "reviews",
+                populate: { path: "author" }
+            })
+            .populate("owner");
 
-    if (!listing) {
-        req.flash("error", "Listing you requested for does not exist!");
-        return res.redirect("/listings");
+        if (!listing) {
+            req.flash("error", "Listing you requested for does not exist!");
+            return res.redirect("/listings");
+        }
+
+        if (listing.reviews && Array.isArray(listing.reviews)) {
+            listing.reviews = listing.reviews.filter(r => r != null);
+        }
+
+        res.render("listings/show.ejs", { listing, mapToken: mapToken || "" });
+    } catch (err) {
+        console.error("SHOW LISTING DETAILED ERROR:", err);
+        next(err);
     }
-
-    if (listing.reviews && Array.isArray(listing.reviews)) {
-        listing.reviews = listing.reviews.filter(r => r != null);
-    }
-
-    res.render("listings/show.ejs", { listing, mapToken: mapToken || "" });
 };
 
 module.exports.createListing = async (req, res, next) => {
