@@ -25,7 +25,7 @@ const userRouter = require("./routes/user.js");
 // const { getMaxListeners } = require("cluster");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust"; //local DB
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderLust";
 
 main()
     .then(() => {
