@@ -17,16 +17,17 @@ module.exports.showListing = async (req, res) => {
     const listing = await Listing.findById(id)
         .populate({
             path: "reviews",
-            populate: [
-                { path: "author" },
-                { path: "auther" }
-            ]
+            populate: { path: "author" }
         })
         .populate("owner");
 
     if (!listing) {
         req.flash("error", "Listing you requested for does not exist!");
         return res.redirect("/listings");
+    }
+
+    if (listing.reviews && Array.isArray(listing.reviews)) {
+        listing.reviews = listing.reviews.filter(r => r != null);
     }
 
     res.render("listings/show.ejs", { listing, mapToken: mapToken || "" });
