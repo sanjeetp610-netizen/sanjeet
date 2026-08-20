@@ -1,7 +1,7 @@
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const Listing = require("../models/listing");
 const mapToken = process.env.MAP_TOKEN;
-const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+const geocodingClient = mapToken ? mbxGeocoding({ accessToken: mapToken }) : null;
 
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
@@ -17,9 +17,10 @@ module.exports.showListing = async (req, res) => {
     const listing = await Listing.findById(id)
         .populate({
             path: "reviews",
-            populate: {
-                path: "auther",
-            },
+            populate: [
+                { path: "author" },
+                { path: "auther" }
+            ],
         })
         .populate("owner");
 
@@ -28,30 +29,40 @@ module.exports.showListing = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    console.log(listing);
-    res.render("listings/show.ejs", { listing });
+    res.render("listings/show.ejs", { listing, mapToken: mapToken || "" });
 };
 
 module.exports.createListing = async (req, res, next) => {
-
-    let response = await geocodingClient
-        .forwardGeocode({
-            query: req.body.listing.location,
-            limit: 1,
-        })
-        .send();
-
-    let url = req.file.path;
-    let filename = req.file.filename;
+    let response;
+    if (geocodingClient && req.body.listing?.location) {
+        try {
+            response = await geocodingClient
+                .forwardGeocode({
+                    query: req.body.listing.location,
+                    limit: 1,
+                })
+                .send();
+        } catch (e) {
+            console.error("Geocoding error:", e);
+        }
+    }
 
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image = { url, filename };
 
-    newListing.geometry = response.body.features[0].geometry;
+    if (req.file) {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        newListing.image = { url, filename };
+    }
+
+    if (response && response.body && response.body.features && response.body.features.length > 0) {
+        newListing.geometry = response.body.features[0].geometry;
+    } else {
+        newListing.geometry = { type: 'Point', coordinates: [77.2090, 28.6139] };
+    }
 
     let savedListing = await newListing.save();
-    console.log(savedListing);
 
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -67,8 +78,10 @@ module.exports.renderEditForm = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    let originalImageUrl = listing.image.url;
-    originalImageUrl = originalImageUrl.replace("/upload", "/upload/h_300,w_250");
+    let originalImageUrl = listing.image?.url || "";
+    if (originalImageUrl.includes("/upload")) {
+        originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_250");
+    }
 
     res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
@@ -83,7 +96,6 @@ module.exports.updateListing = async (req, res) => {
     );
 
     if (typeof req.file !== "undefined") {
-
         let url = req.file.path;
         let filename = req.file.filename;
 
@@ -99,8 +111,6 @@ module.exports.destroyListing = async (req, res) => {
     let { id } = req.params;
 
     let deletedListing = await Listing.findByIdAndDelete(id);
-
-    console.log(deletedListing);
 
     req.flash("success", "Listing Deleted!");
     res.redirect("/listings");

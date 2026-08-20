@@ -94,15 +94,12 @@
             <p>Boats </p>
         </div>
 
-
-
         <div class="tax-toggle">
             <div class="form-check-reverse form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
                 <label class="form-check-label" for="switchCheckDefault">Display total after Taxes</label>
             </div>
         </div>
-
 
     </div>
 
@@ -112,8 +109,8 @@
             <a href="/listings/<%= listing._id%>" class="listing-link">
                 <div class="card col listing-card">
 
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image"
-                        style=" height: 20rem" />
+                    <img src="<%= listing.image?.url || 'https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60' %>" class="card-img-top" alt="listing_image"
+                        style="height: 20rem" />
                     <div class="card-img-overlay"> </div>
                     <div class="card-body">
                         <p class="card-text">
@@ -123,7 +120,7 @@
                             </b>
 
                             <br>
-                            &#8377; <%= listing.price.toLocaleString("en-IN") %> /night<br>
+                            &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %> /night<br>
                                 <i class="tax-info">&nbsp; &nbsp;+18% GST</i>
                         </p>
 
@@ -134,16 +131,17 @@
     </div>
 
     <script>
-        // let taxSwitch = document.getElementById("flexSwitchCheckDefault");
         let taxSwitch = document.getElementById("switchCheckDefault");
-        taxSwitch.addEventListener("click", () => {
-            let taxInfo = document.getElementsByClassName("tax-info");
-            for (info of taxInfo) {
-                if (info.style.display != "inline") {
-                    info.style.display = "inline";
-                } else {
-                    info.style.display = "none";
+        if (taxSwitch) {
+            taxSwitch.addEventListener("click", () => {
+                let taxInfo = document.getElementsByClassName("tax-info");
+                for (info of taxInfo) {
+                    if (info.style.display != "inline") {
+                        info.style.display = "inline";
+                    } else {
+                        info.style.display = "none";
+                    }
                 }
-            }
-        });
+            });
+        }
     </script>

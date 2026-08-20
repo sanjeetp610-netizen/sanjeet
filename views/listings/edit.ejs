@@ -10,7 +10,7 @@
                     <label for="title" class="form-label">Title</label>
                     <input name="listing[title]" value="<%=listing.title%>" type="text" class="form-control" required>
 
-                    <div class="valid-feedback"> please enter the valid Title</div>
+                    <div class="valid-feedback"> Please enter a valid Title</div>
 
                 </div>
 
@@ -19,20 +19,20 @@
                     <textarea name="listing[description]" class="form-control"
                         required><%=listing.description %></textarea>
 
-                    <div class="invalid-feedback"> please enter the short description!</div>
+                    <div class="invalid-feedback"> Please enter a short description!</div>
 
                 </div>
 
+                <% if (originalImageUrl) { %>
+                    <div class="mb-3">
+                        Original Listing Image <br>
+                        <img src="<%= originalImageUrl %>" class="img-thumbnail" style="max-height: 200px;" />
+                    </div>
+                <% } %>
+
                 <div class="mb-3">
-                    Original Listing Image <br>
-                    <img src="<%= listing.image.url%>" />
-
-                </div>
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">upload new Image</label>
-                    <input name="listing[image][url]" type="text" class="form-control" />
-
+                    <label for="image" class="form-label">Upload New Image</label>
+                    <input name="listing[image]" type="file" class="form-control" />
                 </div>
 
                 <div class="row">
@@ -42,7 +42,7 @@
                         <input name="listing[price]" value="<%=listing.price%>" type="number" class="form-control"
                             required>
 
-                        <div class="invalid-feedback"> please enter the Price</div>
+                        <div class="invalid-feedback"> Please enter a valid price</div>
 
                     </div>
 
@@ -51,7 +51,7 @@
                         <input name="listing[country]" value="<%=listing.country%>" type="text" class="form-control"
                             required>
 
-                        <div class="invalid-feedback"> please enter the valid country</div>
+                        <div class="invalid-feedback"> Please enter a valid country</div>
 
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                     <input name="listing[location]" value="<%=listing.location%>" type="text" class="form-control"
                         required>
 
-                    <div class="invalid-feedback"> please enter the valid location </div>
+                    <div class="invalid-feedback"> Please enter a valid location </div>
 
                 </div>
 

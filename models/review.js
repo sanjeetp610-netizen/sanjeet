@@ -13,8 +13,12 @@ const reviewsSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
     auther: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     }
 });
