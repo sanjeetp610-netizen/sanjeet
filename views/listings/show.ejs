@@ -1,8 +1,8 @@
 <% layout("/layouts/boilerplate")%>
 
 <script>
-    const mapToken = "<%= mapToken %>";
-    const listing = <%- JSON.stringify(listing) %>;
+    const mapToken = "<%= typeof mapToken !== 'undefined' ? mapToken : '' %>";
+    const listing = <%- typeof listing !== 'undefined' ? JSON.stringify(listing) : '{}' %>;
 </script>
 
 <div class="row mt-3">
