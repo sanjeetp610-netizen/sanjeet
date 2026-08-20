@@ -75,27 +75,29 @@
                     <div class="row">
                         <p><b>All Reviews</b></p>
                         <% for (let review of listing.reviews) { %>
-                            <% 
-                                let authorObj = review.author || review.auther;
-                                let isAuthor = currUser && authorObj && ((authorObj._id || authorObj).toString() === (currUser._id || currUser).toString());
-                            %>
-                            <div class="card col-5 ms-3 mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        @<%= authorObj?.username || "User" %>
-                                    </h5>
+                            <% if (review) { %>
+                                <% 
+                                    let authorObj = review.author || review.auther;
+                                    let isAuthor = currUser && authorObj && ((authorObj._id || authorObj).toString() === (currUser._id || currUser).toString());
+                                %>
+                                <div class="card col-5 ms-3 mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            @<%= authorObj?.username || "User" %>
+                                        </h5>
 
-                                    <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+                                        <p class="starability-result card-text" data-rating="<%= review.rating || 1 %>"></p>
 
-                                    <p class="card-text"><%= review.comment %></p>
+                                        <p class="card-text"><%= review.comment %></p>
 
-                                    <% if (isAuthor) { %>
-                                        <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                            <button class="btn btn-sm btn-dark">Delete</button>
-                                        </form>
-                                    <% } %>
+                                        <% if (isAuthor) { %>
+                                            <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                <button class="btn btn-sm btn-dark">Delete</button>
+                                            </form>
+                                        <% } %>
+                                    </div>
                                 </div>
-                            </div>
+                            <% } %>
                         <% } %>
                     </div>
                 <% } %>
