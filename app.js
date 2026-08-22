@@ -16,6 +16,8 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Listing = require("./models/listing.js");
+const seedData = require("./init/data.js");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
@@ -27,14 +29,39 @@ const userRouter = require("./routes/user.js");
 const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderLust";
 
 main()
-    .then(() => {
+    .then(async () => {
         console.log("connected to DB is successful");
+        await addMissingSampleListings();
     }).catch((err) => {
         console.log(err);
     });
 
 async function main() {
     await mongoose.connect(dbUrl);
+}
+
+// Adds only sample listings that are not already in the database. This lets a
+// new deployment pick up seed-data additions without deleting user content.
+async function addMissingSampleListings() {
+    const titles = seedData.data.map((listing) => listing.title);
+    const existingTitles = await Listing.distinct("title", {
+        title: { $in: titles },
+    });
+    const existingTitleSet = new Set(existingTitles);
+    const missingListings = seedData.data
+        .filter((listing) => !existingTitleSet.has(listing.title))
+        .map((listing) => ({
+            ...listing,
+            geometry: listing.geometry || {
+                type: "Point",
+                coordinates: [77.2090, 28.6139],
+            },
+        }));
+
+    if (missingListings.length > 0) {
+        await Listing.insertMany(missingListings);
+        console.log(`added ${missingListings.length} missing sample listings`);
+    }
 }
 
 app.set("view engine", "ejs");
