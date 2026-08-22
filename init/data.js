@@ -350,4 +350,80 @@ const sampleListings = [
     },
 ];
 
+const worldwideListings = [
+    { title: "Rooftop Riad in Marrakech", description: "Wake to Atlas Mountain light in a peaceful riad with a tiled courtyard and a private rooftop terrace.", price: 1450, location: "Marrakech", country: "Morocco" },
+    { title: "Cliffside Cottage in Santorini", description: "A whitewashed hideaway above the Aegean, ideal for sunset dinners and slow island mornings.", price: 3200, location: "Oia", country: "Greece" },
+    { title: "Northern Lights Glass Cabin", description: "Watch the aurora from a warm glass cabin tucked beside Icelandic lava fields.", price: 2800, location: "Reykjavik", country: "Iceland" },
+    { title: "Kyoto Machiya Townhouse", description: "Stay in a restored wooden townhouse close to quiet lanes, tea houses, and temple gardens.", price: 1900, location: "Kyoto", country: "Japan" },
+    { title: "Cape Town Ocean View Home", description: "A bright coastal home with Table Mountain views, a sun deck, and easy access to the Atlantic shore.", price: 2600, location: "Cape Town", country: "South Africa" },
+    { title: "Paris Left Bank Studio", description: "A compact, elegant studio near bookshops, cafes, and the Seine in the heart of Paris.", price: 2100, location: "Paris", country: "France" },
+    { title: "Patagonian Lakeside Lodge", description: "Recharge beside a glacial lake with hiking trails and dramatic Andean scenery at your door.", price: 2300, location: "Bariloche", country: "Argentina" },
+    { title: "Sydney Harbour Apartment", description: "Contemporary city living with a balcony overlooking the harbour and an easy walk to the Opera House.", price: 3000, location: "Sydney", country: "Australia" },
+    { title: "Amalfi Coast Lemon Villa", description: "Terraced gardens, sea breezes, and a sunny dining patio make this villa a Mediterranean retreat.", price: 3400, location: "Positano", country: "Italy" },
+    { title: "Lisbon Tram District Flat", description: "A colorful apartment in a historic hillside neighborhood, moments from viewpoints and local bakeries.", price: 1550, location: "Lisbon", country: "Portugal" },
+    { title: "Norwegian Fjord House", description: "A calm waterfront home with floor-to-ceiling views of a spectacular Norwegian fjord.", price: 2400, location: "Bergen", country: "Norway" },
+    { title: "Cappadocia Cave Suite", description: "Sleep in a beautifully finished cave suite and watch hot-air balloons rise at dawn.", price: 1700, location: "Goreme", country: "Turkey" },
+    { title: "Hanoi Old Quarter Loft", description: "A relaxed loft base for discovering Hanoi's food stalls, galleries, and historic streets.", price: 950, location: "Hanoi", country: "Vietnam" },
+    { title: "Petra Desert Camp", description: "A private desert tent with Bedouin hospitality, clear night skies, and unforgettable sandstone landscapes.", price: 1350, location: "Wadi Musa", country: "Jordan" },
+    { title: "Lake Bled Alpine Chalet", description: "A timber chalet surrounded by alpine meadows, only minutes from the famous lake and castle.", price: 1650, location: "Bled", country: "Slovenia" },
+    { title: "Cartagena Colonial Courtyard", description: "Colorful colonial details, a leafy courtyard, and a refreshing plunge pool in Cartagena's old city.", price: 1800, location: "Cartagena", country: "Colombia" },
+    { title: "Queenstown Adventure Lodge", description: "A stylish base for mountain biking, hiking, and lakeside adventures in New Zealand's adventure capital.", price: 2200, location: "Queenstown", country: "New Zealand" },
+    { title: "Prague Riverside Apartment", description: "A refined apartment beside the Vltava with bridge views and easy access to Prague's old town.", price: 1500, location: "Prague", country: "Czech Republic" },
+    { title: "Cairo Nile View Penthouse", description: "A spacious penthouse with a private terrace overlooking the Nile and Cairo's evening lights.", price: 2000, location: "Cairo", country: "Egypt" },
+    { title: "Swiss Alpine Farmhouse", description: "A traditional farmhouse with mountain balconies, hiking paths, and crisp Alpine air.", price: 2750, location: "Zermatt", country: "Switzerland" },
+    { title: "Seoul Hanok Garden Home", description: "A serene traditional home with a small garden, blending Korean heritage with modern comfort.", price: 1600, location: "Seoul", country: "South Korea" },
+    { title: "Oaxaca Artisan Courtyard House", description: "Stay among handcrafted tiles and vibrant markets in a welcoming home near Oaxaca's cultural center.", price: 1100, location: "Oaxaca", country: "Mexico" },
+    { title: "Vancouver Seaside Condo", description: "A polished condo near Stanley Park with mountain, city, and ocean all within reach.", price: 2400, location: "Vancouver", country: "Canada" },
+    { title: "Dubrovnik Stone House", description: "A restored stone home inside the old city walls, filled with Adriatic character and charm.", price: 1900, location: "Dubrovnik", country: "Croatia" },
+    { title: "Nairobi Garden Bungalow", description: "A quiet bungalow in a lush garden setting, a restful base for Nairobi and nearby safari trips.", price: 1200, location: "Nairobi", country: "Kenya" },
+    { title: "Buenos Aires Tango Apartment", description: "A characterful apartment in Palermo, surrounded by cafes, parks, and late-night tango culture.", price: 1250, location: "Buenos Aires", country: "Argentina" },
+    { title: "Jaipur Palace Guesthouse", description: "A graceful guesthouse inspired by Rajasthan's royal heritage, close to markets and historic forts.", price: 900, location: "Jaipur", country: "India" },
+    { title: "Bruges Canal Cottage", description: "A storybook cottage beside a quiet canal, perfect for walks, chocolate shops, and medieval views.", price: 1750, location: "Bruges", country: "Belgium" },
+    { title: "Perth Beachside Retreat", description: "A breezy coastal retreat near clear water, laid-back cafes, and beautiful western sunsets.", price: 1750, location: "Perth", country: "Australia" },
+    { title: "Lima Pacific Ocean Loft", description: "A modern Miraflores loft with ocean breezes, excellent restaurants, and a walkable cliffside park.", price: 1400, location: "Lima", country: "Peru" },
+    { title: "Budapest Thermal Spa Flat", description: "An inviting apartment near Budapest's famous baths, grand boulevards, and Danube promenades.", price: 1300, location: "Budapest", country: "Hungary" },
+    { title: "Doha Marina Residence", description: "A high-rise residence with marina views, pool access, and easy access to Doha's waterfront.", price: 2500, location: "Doha", country: "Qatar" },
+    { title: "Tulum Jungle Casita", description: "A peaceful casita surrounded by tropical greenery, with a plunge pool and a short ride to the coast.", price: 1650, location: "Tulum", country: "Mexico" },
+    { title: "Hobart Heritage Cottage", description: "A cozy heritage cottage near Salamanca Market, galleries, and the wild Tasmanian coastline.", price: 1350, location: "Hobart", country: "Australia" },
+    { title: "Valletta Harbour Townhome", description: "A limestone townhome with sunny balconies above Malta's historic Grand Harbour.", price: 1850, location: "Valletta", country: "Malta" },
+    { title: "Lauterbrunnen Valley Cabin", description: "A quiet cabin framed by waterfalls and snow peaks in one of Switzerland's most scenic valleys.", price: 2900, location: "Lauterbrunnen", country: "Switzerland" },
+    { title: "Riga Art Nouveau Apartment", description: "A bright apartment with period details near Riga's celebrated Art Nouveau district.", price: 1050, location: "Riga", country: "Latvia" },
+    { title: "Vancouver Island A-Frame", description: "A cozy A-frame among tall evergreens, with beaches and forest trails minutes away.", price: 1700, location: "Tofino", country: "Canada" },
+    { title: "Zanzibar Spice Island Villa", description: "A breezy villa with tropical gardens, Swahili design, and a short walk to turquoise water.", price: 2100, location: "Zanzibar City", country: "Tanzania" },
+    { title: "Edinburgh Old Town Flat", description: "A warm stone flat near the Royal Mile, festival venues, and Edinburgh Castle.", price: 1750, location: "Edinburgh", country: "United Kingdom" },
+    { title: "Chilean Wine Country Estate", description: "A peaceful vineyard stay with wide valley views, local tastings, and a private terrace.", price: 2200, location: "Santa Cruz", country: "Chile" },
+    { title: "Sapa Mountain Homestay", description: "A welcoming mountain home overlooking terraced rice fields and misty northern valleys.", price: 700, location: "Sapa", country: "Vietnam" },
+    { title: "Belgrade Danube Loft", description: "A modern loft close to river walks, lively restaurants, and Belgrade's creative neighborhoods.", price: 1000, location: "Belgrade", country: "Serbia" },
+    { title: "Ubud Rice Terrace Villa", description: "A tranquil Bali villa overlooking rice terraces, complete with a private pool and open-air lounge.", price: 2000, location: "Ubud", country: "Indonesia" },
+    { title: "Bora Bora Overwater Bungalow", description: "An iconic overwater bungalow with lagoon access and panoramic views of Mount Otemanu.", price: 8500, location: "Bora Bora", country: "French Polynesia" },
+    { title: "Galle Fort Heritage Home", description: "A restored colonial home inside Galle Fort, where sea walls, cafes, and history meet.", price: 1200, location: "Galle", country: "Sri Lanka" },
+    { title: "Berlin Design District Studio", description: "A minimalist studio in a vibrant Berlin neighborhood, close to galleries, music, and great coffee.", price: 1450, location: "Berlin", country: "Germany" },
+    { title: "Salar de Uyuni Desert Lodge", description: "A remote desert lodge for unforgettable salt-flat horizons, stars, and high-altitude adventure.", price: 2300, location: "Uyuni", country: "Bolivia" },
+    { title: "Moscow Historic District Apartment", description: "A spacious apartment with classic details near museums, theaters, and historic boulevards.", price: 1600, location: "Moscow", country: "Russia" },
+    { title: "Helsinki Seaside Sauna Home", description: "A Scandinavian waterfront home with a private sauna and peaceful Baltic Sea views.", price: 2100, location: "Helsinki", country: "Finland" },
+    { title: "Kathmandu Courtyard Residence", description: "A calm residence with carved wood details, a sunlit courtyard, and easy access to heritage sites.", price: 800, location: "Kathmandu", country: "Nepal" },
+    { title: "Copenhagen Canal Loft", description: "A clean, comfortable loft beside a canal, ideal for exploring Copenhagen by bike.", price: 2200, location: "Copenhagen", country: "Denmark" },
+    { title: "Lagos Waterfront Apartment", description: "A contemporary apartment with lagoon views, secure amenities, and lively city energy nearby.", price: 1550, location: "Lagos", country: "Nigeria" },
+    { title: "Auckland Harbour Villa", description: "A family-friendly villa with harbour views, sunny decks, and easy access to city beaches.", price: 2600, location: "Auckland", country: "New Zealand" },
+];
+
+const listingImages = [
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
+];
+
+sampleListings.push(
+    ...worldwideListings.map((listing, index) => ({
+        ...listing,
+        image: {
+            filename: "listingimage",
+            url: listingImages[index % listingImages.length],
+        },
+    }))
+);
+
 module.exports = { data: sampleListings };
