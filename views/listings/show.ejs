@@ -5,39 +5,44 @@
     const listing = <%- typeof listing !== 'undefined' ? JSON.stringify(listing) : '{}' %>;
 </script>
 
-<div class="row mt-3">
-    <div class="col-8 offset-2">
-
-        <h3><%= listing.title %></h3>
+<main class="listing-detail">
+    <div class="listing-detail-container">
+        <header class="listing-heading">
+            <p class="listing-eyebrow"><i class="fa-solid fa-location-dot"></i> Stay in <%= listing.country %></p>
+            <h1><%= listing.title %></h1>
+        </header>
 
         <div>
-            <div class="card col-6 offset-3 show-card listing-card">
+            <article class="card show-card listing-card listing-hero">
                 <img src="<%= listing.image?.url %>" class="card-img-top show-img" alt="listing_image">
 
-                <div class="card-body">
-                    <p class="card-text">Owned by: <i><%= listing.owner?.username || "Anonymous" %></i></p>
-                    <p class="card-text"><%= listing.description %></p>
-                    <p class="card-text">&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %></p>
-                    <p class="card-text"><%= listing.location %></p>
-                    <p class="card-text"><%= listing.country %></p>
+                <div class="card-body listing-info">
+                    <div class="listing-host">Hosted by <strong><%= listing.owner?.username || "Anonymous" %></strong></div>
+                    <p class="listing-description"><%= listing.description %></p>
+                    <div class="listing-facts">
+                        <div><span>From</span><strong>&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %><small> / night</small></strong></div>
+                        <div><span>Location</span><strong><%= listing.location %>, <%= listing.country %></strong></div>
+                    </div>
                 </div>
-            </div>
+            </article>
             <br>
 
             <% if (currUser && listing.owner && (listing.owner._id || listing.owner).toString() === (currUser._id || currUser).toString()) { %>
-                <div class="btns">
-                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+                <div class="btns listing-actions">
+                    <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit listing</a>
 
                     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                        <button class="btn btn-dark offset-5">Delete</button>
+                        <button class="btn btn-outline-danger">Delete</button>
                     </form>
                 </div>
             <% } %>
 
-            <div class="col-8 offset-3 mb-3">
+            <section class="listing-community">
                 <% if (currUser) { %>
-                    <hr />
-                    <h4>Leave a Review</h4>
+                    <div class="section-heading">
+                        <p class="listing-eyebrow">Guest experiences</p>
+                        <h2>Leave a review</h2>
+                    </div>
 
                     <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
                         <div class="mb-3 mt-3">
@@ -66,21 +71,21 @@
                                 Please add some comments for reviews
                             </div>
                         </div>
-                        <button class="btn btn-outline-dark">Submit</button>
+                        <button class="btn review-submit">Submit review</button>
                     </form>
-                    <hr />
                 <% } %>
 
                 <% if (listing.reviews && listing.reviews.length > 0) { %>
-                    <div class="row">
-                        <p><b>All Reviews</b></p>
+                    <section class="reviews-section">
+                        <div class="section-heading"><p class="listing-eyebrow">From guests</p><h2>Reviews</h2></div>
+                        <div class="row reviews-grid">
                         <% for (let review of listing.reviews) { %>
                             <% if (review) { %>
                                 <% 
                                     let authorObj = review.author || review.auther;
                                     let isAuthor = currUser && authorObj && ((authorObj._id || authorObj).toString() === (currUser._id || currUser).toString());
                                 %>
-                                <div class="card col-5 ms-3 mb-3">
+                                <article class="card review-card col-md-5">
                                     <div class="card-body">
                                         <h5 class="card-title">
                                             @<%= authorObj?.username || "User" %>
@@ -91,24 +96,25 @@
                                         <p class="card-text"><%= review.comment %></p>
 
                                         <% if (isAuthor) { %>
-                                            <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                <button class="btn btn-sm btn-dark">Delete</button>
+                                            <form class="mb-0" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                <button class="btn btn-sm btn-outline-danger">Delete</button>
                                             </form>
                                         <% } %>
                                     </div>
-                                </div>
+                                </article>
                             <% } %>
                         <% } %>
                     </div>
+                    </section>
                 <% } %>
 
-                <div class="col-12 mb-4 text-center">
-                    <h3>Where you'll be</h3>
+                <section class="map-section">
+                    <div class="section-heading"><p class="listing-eyebrow">Explore the area</p><h2>Where you'll be</h2></div>
                     <div id="map"></div>
-                </div>
+                </section>
 
                 <script src="/js/map.js"></script>
-            </div>
+            </section>
         </div>
     </div>
-</div>
+</main>
