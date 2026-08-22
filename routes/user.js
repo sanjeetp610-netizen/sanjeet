@@ -23,6 +23,8 @@ router.route("/login")
         userController.login
     );
 
+router.get("/privacy", userController.renderPrivacy);
+router.get("/terms", userController.renderTerms);
 
 //LOGGED OUT ROUTES =============>>>>>>
 

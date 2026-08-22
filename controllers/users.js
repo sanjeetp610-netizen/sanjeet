@@ -27,6 +27,14 @@ module.exports.renderLoginForm = (req, res) => {
     res.render("users/login.ejs");
 };
 
+module.exports.renderPrivacy = (req, res) => {
+    res.render("legal/privacy.ejs");
+};
+
+module.exports.renderTerms = (req, res) => {
+    res.render("legal/terms.ejs");
+};
+
 module.exports.login = (req, res) => {
     // req.flash("success", " Welcome to Wanderlust!");
     req.flash("success", "Welcome to Wanderlust!");
