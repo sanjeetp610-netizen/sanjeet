@@ -4,6 +4,8 @@ const Review = require("./models/review");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 
+const adminEmail = (process.env.ADMIN_EMAIL || "sanjeetp610@gmail.com").trim().toLowerCase();
+
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl;
@@ -27,11 +29,17 @@ module.exports.isOwner = async (req, res, next) => {
         req.flash("error", "Listing not found!");
         return res.redirect("/listings");
     }
+
+    const currentUser = res.locals.currUser;
+    if (currentUser?.email?.trim().toLowerCase() === adminEmail) {
+        return next();
+    }
+
     let ownerId = listing.owner?._id || listing.owner;
-    let currUserId = res.locals.currUser?._id;
+    let currUserId = currentUser?._id;
     if (!ownerId || !currUserId || !ownerId.equals(currUserId)) {
         req.flash("error", "You are not the owner of this listing!");
-        return res.redirect(`/listings/${id}`);
+        return res.redirect("/listings/" + id);
     }
     next();
 };
@@ -61,13 +69,13 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     let review = await Review.findById(reviewId);
     if (!review) {
         req.flash("error", "Review not found!");
-        return res.redirect(`/listings/${id}`);
+        return res.redirect("/listings/" + id);
     }
     let authorId = (review.author || review.auther)?._id || (review.author || review.auther);
     let currUserId = res.locals.currUser?._id;
     if (!authorId || !currUserId || !authorId.equals(currUserId)) {
         req.flash("error", "You are not the author of this review!");
-        return res.redirect(`/listings/${id}`);
+        return res.redirect("/listings/" + id);
     }
     next();
 };
