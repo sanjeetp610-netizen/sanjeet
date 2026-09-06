@@ -18,7 +18,7 @@
                 <img src="<%= listing.image?.url %>" class="card-img-top show-img" alt="listing_image">
 
                 <div class="card-body listing-info">
-                    <div class="listing-host">Hosted by <strong><%= listing.owner?.username || "Anonymous" %></strong></div>
+                    <div class="listing-host">Hosted by <strong><%= listing.owner?.username || "sanjeet" %></strong></div>
                     <p class="listing-description"><%= listing.description %></p>
                     <div class="listing-facts">
                         <div><span>From</span><strong>&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %><small> / night</small></strong></div>
