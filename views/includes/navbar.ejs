@@ -1,4 +1,6 @@
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
     .site-navbar {
         background: #ffffff;
         box-shadow: 0 2px 14px rgba(34, 34, 34, 0.08);
@@ -24,6 +26,21 @@
     .nav-link:hover {
         background: #f7f7f7;
         color: #ff385c;
+    }
+
+    .feature-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .feature-link i {
+        flex: 0 0 auto;
+        color: #ff385c;
+        font-size: 1.2rem;
+        line-height: 1;
     }
 
     .navbar-collapse {
@@ -121,7 +138,7 @@
         }
 
         .navbar-nav .nav-link {
-            display: block;
+            display: flex;
             width: 100%;
             margin: 0.12rem 0;
         }
@@ -131,6 +148,10 @@
         .navbar-inner {
             padding-left: 1rem !important;
             padding-right: 1rem !important;
+        }
+
+        .feature-link {
+            font-size: 0.98rem;
         }
 
         .search-inp {
@@ -152,7 +173,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/listings">Explore</a>
+                <a class="nav-link feature-link" href="/listings"><i class="fa-regular fa-compass" aria-hidden="true"></i><span>Explore</span></a>
             </div>
 
             <div class="search-wrap mx-lg-auto">
@@ -164,7 +185,7 @@
             </div>
 
             <div class="navbar-nav ms-lg-auto align-items-lg-center">
-                <a class="nav-link" href="/listings/new">Airbnb your home</a>
+                <a class="nav-link feature-link" href="/listings/new"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Airbnb your home</span></a>
                 <% if(!currUser) { %>
                     <a class="nav-link" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link owner-link" href="/login"><b>Log in</b></a>
