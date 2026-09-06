@@ -31,9 +31,8 @@
             <% if (currUser && listing.owner && (listing.owner._id || listing.owner).toString() === (currUser._id || currUser).toString()) { %>
                 <div class="btns listing-actions">
                     <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit listing</a>
-
                     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                        <button class="btn btn-outline-danger">Delete</button>
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
                     </form>
                 </div>
             <% } %>
@@ -42,14 +41,14 @@
                 <% if (currUser) { %>
                     <div class="section-heading">
                         <p class="listing-eyebrow">Guest experiences</p>
-                        <h2>Leave a review</h2>
+                        <h2>Share your stay</h2>
+                        <p class="text-muted">Tell future guests what made this place memorable.</p>
                     </div>
 
-                    <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
+                    <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation review-form">
                         <div class="mb-3 mt-3">
                             <label for="rating" class="form-label">Rating</label>
-
-                            <fieldset class="starability-slot">
+                            <fieldset class="starability-slot" aria-label="Choose a rating">
                                 <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                                 <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                                 <label for="first-rate1" title="Terrible">1 star</label>
@@ -66,13 +65,10 @@
 
                         <div class="mb-3 mt-3">
                             <label for="comment" class="form-label">Comments</label>
-                            <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
-
-                            <div class="invalid-feedback">
-                                Please add some comments for reviews
-                            </div>
+                            <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" placeholder="What did you enjoy about this stay?" required></textarea>
+                            <div class="invalid-feedback">Please add some comments for your review.</div>
                         </div>
-                        <button class="btn review-submit">Submit review</button>
+                        <button type="submit" class="btn review-submit"><i class="fa-solid fa-paper-plane me-2"></i>Post review</button>
                     </form>
                 <% } %>
 
@@ -88,24 +84,19 @@
                                 %>
                                 <article class="card review-card col-md-5">
                                     <div class="card-body">
-                                        <h5 class="card-title">
-                                            @<%= authorObj?.username || "User" %>
-                                        </h5>
-
+                                        <h5 class="card-title">@<%= authorObj?.username || "User" %></h5>
                                         <p class="starability-result card-text" data-rating="<%= review.rating || 1 %>"></p>
-
                                         <p class="card-text"><%= review.comment %></p>
-
                                         <% if (isAuthor) { %>
                                             <form class="mb-0" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                                             </form>
                                         <% } %>
                                     </div>
                                 </article>
                             <% } %>
                         <% } %>
-                    </div>
+                        </div>
                     </section>
                 <% } %>
 
