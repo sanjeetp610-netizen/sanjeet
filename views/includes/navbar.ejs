@@ -1,61 +1,119 @@
 <style>
+    .site-navbar {
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 10px 30px rgba(20, 31, 47, 0.08);
+        backdrop-filter: blur(14px);
+    }
+
+    .brand-mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        color: #172033;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+    }
+
+    .brand-mark i {
+        color: #e85d4a;
+        font-size: 1.45rem;
+    }
+
+    .search-shell {
+        position: relative;
+        width: min(440px, 42vw);
+    }
+
     .search-inp {
-        border-radius: 25px;
-        padding: 0.5rem 1.5rem;
-        width: 370px;
+        width: 100%;
+        border: 1px solid #d9dee8;
+        border-radius: 999px;
+        padding: 0.72rem 7rem 0.72rem 2.8rem;
+        background: #f8fafc;
+        box-shadow: inset 0 1px 2px rgba(20, 31, 47, 0.04);
+    }
+
+    .search-inp:focus {
+        border-color: #e85d4a;
+        box-shadow: 0 0 0 4px rgba(232, 93, 74, 0.14);
+        background: #fff;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #7b8494;
+        pointer-events: none;
     }
 
     .search-btn {
-        background-color: #fe424d;
-        color: white;
-        border-radius: 25px;
-        padding: 0.5rem 1rem;
-        margin-left: 10px;
+        position: absolute;
+        right: 0.35rem;
+        top: 0.35rem;
+        bottom: 0.35rem;
+        border: 0;
+        border-radius: 999px;
+        padding: 0 1rem;
+        background: #e85d4a;
+        color: #fff;
+        font-weight: 700;
     }
 
-    .search-btn i {
-        margin-right: 0.5rem;
+    .search-btn:hover {
+        background: #c94839;
+        color: #fff;
     }
 
-    .search-inp {
-        padding: 0.5rem 3rem 0.5rem 3rem;
+    .nav-link {
+        font-weight: 650;
+    }
+
+    .nav-link:hover {
+        color: #e85d4a;
+    }
+
+    @media (max-width: 575px) {
+        .search-shell {
+            width: 100%;
+            margin: 1rem 0;
+        }
     }
 </style>
 
-<nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/listings">
-            <i class="fa-regular fa-compass"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+<nav class="navbar navbar-expand-sm site-navbar border-bottom sticky-top">
+    <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand brand-mark" href="/listings" aria-label="Wanderlust home">
+            <i class="fa-regular fa-compass"></i>
+            <span>Wanderlust</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/listings">Explore</a>
+            <div class="navbar-nav ms-lg-3">
+                <a class="nav-link" href="/listings"><i class="fa-solid fa-compass me-1"></i>Explore</a>
             </div>
 
-            <div class="navbar-nav mx-auto">
-                <form class="d-flex align-items-center" role="search">
-                    <input class="form-control search-inp" type="search" placeholder="Search Destinations">
-
-                    <button class="btn search-btn" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i> Search
-                    </button>
+            <div class="navbar-nav mx-auto w-100 justify-content-center">
+                <form class="search-shell" role="search" action="/listings" method="GET">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input class="form-control search-inp" name="q" type="search" value="<%= typeof searchTerm !== 'undefined' ? searchTerm : '' %>" placeholder="Search by city, country, or stay" aria-label="Search listings">
+                    <button class="search-btn" type="submit">Search</button>
                 </form>
             </div>
 
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/listings/new">Airbnb your home</a>
+            <div class="navbar-nav ms-lg-auto align-items-lg-center">
+                <a class="nav-link" href="/listings/new"><i class="fa-solid fa-house me-1"></i>Airbnb your home</a>
                 <% if(!currUser) { %>
-                    <a class="nav-link " href="/signup"><b>Sign up</b></a>
-                    <a class="nav-link" href="/login"><b>Log in </b></a>
-                    <% } %>
-                        <% if(currUser) { %>
-                            <a class="nav-link" href="/logout"><b>Log out </b></a>
-                            <% } %>
-
+                    <a class="nav-link" href="/signup"><b>Sign up</b></a>
+                    <a class="nav-link" href="/login"><b>Log in</b></a>
+                <% } %>
+                <% if(currUser) { %>
+                    <a class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket me-1"></i><b>Log out</b></a>
+                <% } %>
             </div>
-
         </div>
     </div>
 </nav>
