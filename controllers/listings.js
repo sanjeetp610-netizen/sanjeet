@@ -4,8 +4,17 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mapToken ? mbxGeocoding({ accessToken: mapToken }) : null;
 
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index", { allListings });
+    const searchTerm = (req.query.q || "").trim();
+    const filter = searchTerm ? {
+        $or: [
+            { title: { $regex: searchTerm, $options: "i" } },
+            { location: { $regex: searchTerm, $options: "i" } },
+            { country: { $regex: searchTerm, $options: "i" } },
+            { description: { $regex: searchTerm, $options: "i" } }
+        ]
+    } : {};
+    const allListings = await Listing.find(filter);
+    res.render("listings/index", { allListings, searchTerm });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -110,7 +119,7 @@ module.exports.updateListing = async (req, res) => {
     }
 
     req.flash("success", "Listing Updated!");
-    res.redirect(`/listings/${id}`);
+    res.redirect("/listings/" + id);
 };
 
 module.exports.destroyListing = async (req, res) => {
