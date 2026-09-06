@@ -11,11 +11,12 @@
     }
 
     .nav-link {
-        border-radius: 999px;
+        border-radius: 10px;
         color: #222222;
-        font-size: 0.9rem;
-        font-weight: 700;
-        padding: 0.72rem 0.95rem !important;
+        font-size: 0.875rem;
+        font-weight: 600;
+        line-height: 1.2;
+        padding: 0.72rem 0.8rem !important;
         white-space: nowrap;
         transition: color 160ms ease, background 160ms ease;
     }
@@ -42,22 +43,22 @@
 
     .search-inp {
         width: 100%;
-        min-height: 46px;
+        min-height: 44px;
         border: 1px solid #dddddd;
-        border-radius: 999px;
-        padding: 0.78rem 7rem 0.78rem 2.9rem;
+        border-radius: 12px;
+        padding: 0.7rem 6.5rem 0.7rem 2.75rem;
         background: #ffffff;
-        box-shadow: 0 3px 12px rgba(34, 34, 34, 0.08);
+        box-shadow: 0 2px 8px rgba(34, 34, 34, 0.07);
     }
 
     .search-inp:focus {
         border-color: #ff385c;
-        box-shadow: 0 0 0 4px rgba(255, 56, 92, 0.14), 0 4px 16px rgba(34, 34, 34, 0.1);
+        box-shadow: 0 0 0 3px rgba(255, 56, 92, 0.14);
     }
 
     .search-icon {
         position: absolute;
-        left: 1.05rem;
+        left: 1rem;
         top: 50%;
         z-index: 2;
         color: #717171;
@@ -71,19 +72,19 @@
         top: 0.35rem;
         bottom: 0.35rem;
         border: 0;
-        border-radius: 999px;
-        padding: 0 1.15rem;
+        border-radius: 8px;
+        padding: 0 1rem;
         background: #ff385c;
         color: #ffffff;
-        font-size: 0.82rem;
-        font-weight: 800;
-        transition: background 160ms ease, transform 160ms ease;
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1;
+        transition: background 160ms ease;
     }
 
     .search-btn:hover {
         background: #e31c5f;
         color: #ffffff;
-        transform: translateY(-1px);
     }
 
     .owner-link {
@@ -99,6 +100,10 @@
     @media (max-width: 991.98px) {
         .navbar-inner {
             min-height: 68px;
+        }
+
+        .navbar-toggler {
+            padding: 0.35rem 0.55rem;
         }
 
         .navbar-collapse {
@@ -118,7 +123,7 @@
         .navbar-nav .nav-link {
             display: block;
             width: 100%;
-            margin: 0.15rem 0;
+            margin: 0.12rem 0;
         }
     }
 
@@ -129,11 +134,12 @@
         }
 
         .search-inp {
-            padding-left: 2.65rem;
+            padding-left: 2.55rem;
+            padding-right: 6rem;
         }
 
         .search-btn {
-            padding: 0 0.95rem;
+            padding: 0 0.85rem;
         }
     }
 </style>
@@ -146,7 +152,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/listings"><i class="fa-solid fa-compass me-1"></i>Explore</a>
+                <a class="nav-link" href="/listings">Explore</a>
             </div>
 
             <div class="search-wrap mx-lg-auto">
@@ -158,13 +164,13 @@
             </div>
 
             <div class="navbar-nav ms-lg-auto align-items-lg-center">
-                <a class="nav-link" href="/listings/new"><i class="fa-solid fa-house me-1"></i>Airbnb your home</a>
+                <a class="nav-link" href="/listings/new">Airbnb your home</a>
                 <% if(!currUser) { %>
                     <a class="nav-link" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link owner-link" href="/login"><b>Log in</b></a>
                 <% } %>
                 <% if(currUser) { %>
-                    <a class="nav-link owner-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket me-1"></i><b>Log out</b></a>
+                    <a class="nav-link owner-link" href="/logout"><b>Log out</b></a>
                 <% } %>
             </div>
         </div>
