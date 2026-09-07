@@ -377,3 +377,312 @@ body {
     justify-content: center;
     text-align: center;
 }
+
+/* Responsive layout foundation */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+iframe {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+.form-control,
+.form-select,
+input[type="file"] {
+    max-width: 100%;
+    min-width: 0;
+}
+
+input[type="file"] {
+    overflow: hidden;
+}
+
+.btn {
+    min-height: 2.75rem;
+    white-space: normal;
+}
+
+.site-navbar,
+.site-navbar .navbar-inner {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.site-navbar .navbar-collapse {
+    min-width: 0;
+}
+
+.search-wrap,
+.search-shell {
+    min-width: 0;
+}
+
+.listing-form-page,
+.auth-page {
+    padding-bottom: 2rem;
+}
+
+.listing-form-page form,
+.auth-page form {
+    width: 100%;
+}
+
+.listing-preview-image {
+    display: block;
+    height: auto;
+    max-height: 12.5rem;
+    object-fit: contain;
+    width: 100%;
+}
+
+.listing-card-image {
+    aspect-ratio: 4 / 3;
+    height: auto !important;
+    object-fit: cover;
+}
+
+.listing-link {
+    display: block;
+    min-width: 0;
+}
+
+.listing-link .listing-card {
+    width: 100%;
+}
+
+#filters {
+    gap: 0.25rem 0.5rem;
+    width: 100%;
+}
+
+#filters .filter {
+    flex: 0 1 auto;
+    margin-left: 0;
+    margin-right: 1rem;
+    min-width: 3.75rem;
+}
+
+#filters .tax-toggle {
+    margin-left: 0;
+    max-width: 100%;
+    min-height: 3rem;
+}
+
+.listing-detail,
+.listing-detail-container,
+.listing-community,
+.map-section {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.listing-actions {
+    flex-wrap: wrap;
+}
+
+.listing-actions form {
+    max-width: 100%;
+}
+
+#map {
+    max-width: 100%;
+}
+
+@media (max-width: 1199.98px) {
+    .navbar-inner {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .listing-detail {
+        padding-left: clamp(1rem, 3vw, 1.5rem);
+        padding-right: clamp(1rem, 3vw, 1.5rem);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .site-navbar .navbar-collapse {
+        flex-basis: 100%;
+        width: 100%;
+    }
+
+    .site-navbar .navbar-nav {
+        min-width: 0;
+    }
+
+    .site-navbar .navbar-nav .nav-link {
+        min-height: 2.75rem;
+    }
+
+    .listing-detail {
+        padding-top: 2.25rem;
+    }
+
+    .listing-hero {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .container,
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .row {
+        --bs-gutter-x: 1rem;
+    }
+
+    .listing-heading h1 {
+        overflow-wrap: anywhere;
+    }
+
+    .listing-description {
+        font-size: 1rem;
+    }
+
+    .listing-facts {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .listing-facts div {
+        min-width: 0;
+    }
+
+    .reviews-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .review-card {
+        width: 100%;
+    }
+
+    .listing-actions .btn,
+    .listing-actions form {
+        max-width: 100%;
+    }
+
+    .f-info {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .listing-detail {
+        padding: 1.5rem 0.75rem 2.5rem;
+    }
+
+    .listing-heading {
+        margin-bottom: 1rem;
+    }
+
+    .listing-heading h1 {
+        font-size: clamp(1.7rem, 8vw, 2.25rem);
+    }
+
+    .listing-section-divider {
+        margin-top: 0.75rem;
+    }
+
+    .listing-info {
+        padding: 1rem !important;
+    }
+
+    .listing-actions {
+        align-items: stretch;
+        flex-direction: column;
+        margin-bottom: 1.75rem;
+    }
+
+    .listing-actions .btn,
+    .listing-actions form,
+    .listing-actions form .btn {
+        width: 100%;
+    }
+
+    .search-inp {
+        font-size: 0.9rem;
+    }
+
+    #filters {
+        align-items: stretch;
+        gap: 0.35rem;
+        justify-content: space-between;
+    }
+
+    #filters .filter {
+        flex: 1 1 28%;
+        margin: 0.85rem 0 0;
+        min-width: 0;
+    }
+
+    #filters .filter p {
+        margin-bottom: 0;
+        overflow-wrap: anywhere;
+    }
+
+    #filters .tax-toggle {
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-top: 0.75rem;
+        padding: 0.65rem 0.75rem;
+    }
+
+    .tax-toggle .form-check {
+        margin: 0;
+    }
+
+    #map {
+        height: min(72vw, 20rem);
+        min-height: 16rem;
+    }
+}
+
+@media (max-width: 399.98px) {
+    .navbar-inner {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    .feature-link {
+        font-size: 0.9rem;
+    }
+
+    .search-inp {
+        padding-left: 2.35rem;
+        padding-right: 5.25rem;
+    }
+
+    .search-btn {
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+    }
+
+    .review-submit,
+    .circular-eyebrow {
+        min-width: 0;
+        width: 100%;
+    }
+}
