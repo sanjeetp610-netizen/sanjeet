@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV != "production") {
-    require('dotenv').config();
+    require("dotenv").config();
 }
 
 const express = require("express");
@@ -16,52 +16,22 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const Listing = require("./models/listing.js");
-const seedData = require("./init/data.js");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-// const { getMaxListeners } = require("cluster");
-
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust"; //local DB
 const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderLust";
 
 main()
-    .then(async () => {
+    .then(() => {
         console.log("connected to DB is successful");
-        await addMissingSampleListings();
     }).catch((err) => {
         console.log(err);
     });
 
 async function main() {
     await mongoose.connect(dbUrl);
-}
-
-// Adds only sample listings that are not already in the database. This lets a
-// new deployment pick up seed-data additions without deleting user content.
-async function addMissingSampleListings() {
-    const titles = seedData.data.map((listing) => listing.title);
-    const existingTitles = await Listing.distinct("title", {
-        title: { $in: titles },
-    });
-    const existingTitleSet = new Set(existingTitles);
-    const missingListings = seedData.data
-        .filter((listing) => !existingTitleSet.has(listing.title))
-        .map((listing) => ({
-            ...listing,
-            geometry: listing.geometry || {
-                type: "Point",
-                coordinates: [77.2090, 28.6139],
-            },
-        }));
-
-    if (missingListings.length > 0) {
-        await Listing.insertMany(missingListings);
-        console.log(`added ${missingListings.length} missing sample listings`);
-    }
 }
 
 app.set("view engine", "ejs");
@@ -118,18 +88,14 @@ app.get("/", (req, res) => {
     res.redirect("/listings");
 });
 
-//=======>>>>>>>>>>>>>>> USE OF DIFFERENT ROUTERS
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-// Express 5 requires a named wildcard parameter for catch-all routes.
 app.all("/{*path}", (req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));
 });
 
-//Middleware
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "something went wrong!" } = err;
     console.error("SERVER ERROR LOG:", err);
@@ -138,5 +104,5 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`server is listening to port ${port}`);
+    console.log("server is listening to port " + port);
 });
