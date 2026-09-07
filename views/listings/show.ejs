@@ -28,7 +28,12 @@
             </article>
             <br>
 
-            <% if (currUser && listing.owner && (listing.owner._id || listing.owner).toString() === (currUser._id || currUser).toString()) { %>
+            <% 
+                const adminEmail = (process.env.ADMIN_EMAIL || "sanjeetp610@gmail.com").trim().toLowerCase();
+                const isAdmin = currUser?.email?.trim().toLowerCase() === adminEmail;
+                const isOwner = currUser && listing.owner && (listing.owner._id || listing.owner).toString() === (currUser._id || currUser).toString();
+            %>
+            <% if (currUser && (isAdmin || isOwner)) { %>
                 <div class="btns listing-actions">
                     <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit listing</a>
                     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
