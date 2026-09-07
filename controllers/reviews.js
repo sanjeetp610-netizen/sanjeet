@@ -18,6 +18,13 @@ module.exports.createReview = async (req, res) => {
     res.redirect(`/listings/${listing._id}`);
 };
 
+module.exports.updateReview = async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Review.findByIdAndUpdate(reviewId, { ...req.body.review }, { runValidators: true });
+    req.flash("success", "Review Updated!");
+    res.redirect(`/listings/${id}`);
+};
+
 module.exports.destroyReview = async (req, res) => {
     let { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
