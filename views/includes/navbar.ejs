@@ -32,19 +32,25 @@
         display: inline-flex;
         align-items: center;
         gap: 0.55rem;
-        font-size: 1rem;
+        font-size: 1.08rem;
         font-weight: 700;
+    }
+
+    .brand-link {
+        flex: 0 0 auto;
+        margin-right: 1.25rem;
     }
 
     .feature-link i {
         flex: 0 0 auto;
         color: #ff385c;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         line-height: 1;
     }
 
     .navbar-collapse {
         align-items: center;
+        min-width: 0;
     }
 
     .search-wrap {
@@ -119,8 +125,13 @@
             min-height: 68px;
         }
 
+        .brand-link {
+            margin-right: 0;
+        }
+
         .navbar-toggler {
             padding: 0.35rem 0.55rem;
+            margin-left: auto;
         }
 
         .navbar-collapse {
@@ -151,7 +162,12 @@
         }
 
         .feature-link {
-            font-size: 0.98rem;
+            font-size: 1.05rem;
+        }
+
+        .brand-link {
+            padding-left: 0 !important;
+            padding-right: 0.35rem !important;
         }
 
         .search-inp {
@@ -167,15 +183,16 @@
 
 <nav class="navbar navbar-expand-lg site-navbar border-bottom sticky-top">
     <div class="container-fluid navbar-inner px-3 px-lg-4">
-        <button class="navbar-toggler border-0 shadow-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-label="Toggle navigation">
+        <a class="nav-link feature-link brand-link" href="/listings">
+            <i class="fa-regular fa-compass" aria-hidden="true"></i>
+            <span>Explore</span>
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link feature-link" href="/listings"><i class="fa-regular fa-compass" aria-hidden="true"></i><span>Explore</span></a>
-            </div>
-
             <div class="search-wrap mx-lg-auto">
                 <form class="search-shell" role="search" action="/listings" method="GET">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -185,7 +202,10 @@
             </div>
 
             <div class="navbar-nav ms-lg-auto align-items-lg-center">
-                <a class="nav-link feature-link" href="/listings/new"><i class="fa-solid fa-house" aria-hidden="true"></i><span>Airbnb your home</span></a>
+                <a class="nav-link feature-link" href="/listings/new">
+                    <i class="fa-solid fa-house" aria-hidden="true"></i>
+                    <span>Airbnb your home</span>
+                </a>
                 <% if(!currUser) { %>
                     <a class="nav-link" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link owner-link" href="/login"><b>Log in</b></a>
