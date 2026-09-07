@@ -1,7 +1,14 @@
-const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const Listing = require("../models/listing");
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mapToken ? mbxGeocoding({ accessToken: mapToken }) : null;
+const fallbackCoordinates = [77.2090, 28.6139];
+
+const isFallbackGeometry = (geometry) =>
+    Array.isArray(geometry?.coordinates) &&
+    geometry.coordinates.length === 2 &&
+    geometry.coordinates[0] === fallbackCoordinates[0] &&
+    geometry.coordinates[1] === fallbackCoordinates[1];
 
 module.exports.index = async (req, res) => {
     const searchTerm = (req.query.q || "").trim();
@@ -40,6 +47,24 @@ module.exports.showListing = async (req, res, next) => {
             listing.reviews = listing.reviews.filter(r => r != null);
         }
 
+        const coordinates = listing.geometry?.coordinates;
+        const needsGeocoding = !Array.isArray(coordinates) || coordinates.length !== 2 || isFallbackGeometry(listing.geometry);
+        if (geocodingClient && listing.location && needsGeocoding) {
+            try {
+                const response = await geocodingClient.forwardGeocode({
+                    query: `${listing.location}, ${listing.country || ""}`,
+                    limit: 1,
+                }).send();
+                const feature = response.body?.features?.[0];
+                if (feature?.geometry?.coordinates?.length === 2) {
+                    listing.geometry = feature.geometry;
+                    await listing.save();
+                }
+            } catch (e) {
+                console.error("Legacy listing geocoding error:", e);
+            }
+        }
+
         res.render("listings/show.ejs", { listing, mapToken: mapToken || "" });
     } catch (err) {
         console.error("SHOW LISTING DETAILED ERROR:", err);
@@ -74,7 +99,7 @@ module.exports.createListing = async (req, res, next) => {
     if (response && response.body && response.body.features && response.body.features.length > 0) {
         newListing.geometry = response.body.features[0].geometry;
     } else {
-        newListing.geometry = { type: 'Point', coordinates: [77.2090, 28.6139] };
+        newListing.geometry = { type: "Point", coordinates: fallbackCoordinates };
     }
 
     let savedListing = await newListing.save();
