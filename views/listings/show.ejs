@@ -16,7 +16,6 @@
         <div>
             <article class="card show-card listing-card listing-hero">
                 <img src="<%= listing.image?.url %>" class="card-img-top show-img" alt="listing_image">
-
                 <div class="card-body listing-info">
                     <div class="listing-host">Hosted by <strong><%= listing.owner?.username || "sanjeet" %></strong></div>
                     <p class="listing-description"><%= listing.description %></p>
@@ -93,8 +92,24 @@
                                         <p class="starability-result card-text" data-rating="<%= review.rating || 1 %>"></p>
                                         <p class="card-text"><%= review.comment %></p>
                                         <% if (isAuthor) { %>
-                                            <form class="mb-0" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                            <details class="review-edit">
+                                                <summary class="btn btn-sm btn-outline-secondary">Edit review</summary>
+                                                <form class="review-edit-form" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=PUT">
+                                                    <label for="review-rating-<%= review._id %>" class="form-label">Rating</label>
+                                                    <select id="review-rating-<%= review._id %>" name="review[rating]" class="form-select form-select-sm" required>
+                                                        <option value="1" <%= review.rating == 1 ? "selected" : "" %>>1 star</option>
+                                                        <option value="2" <%= review.rating == 2 ? "selected" : "" %>>2 stars</option>
+                                                        <option value="3" <%= review.rating == 3 ? "selected" : "" %>>3 stars</option>
+                                                        <option value="4" <%= review.rating == 4 ? "selected" : "" %>>4 stars</option>
+                                                        <option value="5" <%= review.rating == 5 ? "selected" : "" %>>5 stars</option>
+                                                    </select>
+                                                    <label for="review-comment-<%= review._id %>" class="form-label">Comments</label>
+                                                    <textarea id="review-comment-<%= review._id %>" name="review[comment]" class="form-control form-control-sm" rows="3" required><%= review.comment %></textarea>
+                                                    <button type="submit" class="btn btn-sm review-submit">Save changes</button>
+                                                </form>
+                                            </details>
+                                            <form class="review-delete-form" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete review</button>
                                             </form>
                                         <% } %>
                                     </div>
@@ -106,7 +121,7 @@
                 <% } %>
 
                 <section class="map-section">
-                    <div class="section-heading"><p class="listing-eyebrow">Explore the area</p><h2>Where you'll be</h2><hr class="listing-section-divider"></div>
+                    <div class="section-heading"><p class="listing-eyebrow circular-eyebrow">Explore the area</p><h2>Where you'll be</h2><hr class="listing-section-divider"></div>
                     <div id="map"></div>
                 </section>
 
