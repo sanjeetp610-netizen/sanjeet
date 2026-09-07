@@ -363,3 +363,17 @@ body {
 .circular-eyebrow:hover {
     background: #fff5f5;
 }
+
+/* Strong button outlines */
+.review-submit {
+    border: 2px solid #c72835 !important;
+    min-width: 9rem;
+}
+
+.circular-eyebrow {
+    border: 2px solid #e33b47;
+    font-weight: 900;
+    min-width: 10rem;
+    justify-content: center;
+    text-align: center;
+}
