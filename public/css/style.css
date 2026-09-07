@@ -251,3 +251,82 @@ body {
     .listing-info { padding: 1.1rem !important; }
     #map { height: 320px; }
 }
+
+/* Final responsive polish */
+body {
+    min-height: 100vh;
+    min-width: 0;
+}
+
+.navbar {
+    min-height: 5.75rem;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.circular-eyebrow {
+    align-items: center;
+    border: 1px solid #fe424d;
+    border-radius: 999px;
+    display: inline-flex;
+    font-size: 0.88rem;
+    gap: 0.45rem;
+    padding: 0.5rem 0.9rem;
+}
+
+.listing-heading h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.section-heading h2 {
+    font-size: clamp(1.75rem, 3vw, 2.15rem);
+}
+
+.review-submit {
+    border-radius: 999px !important;
+    padding-inline: 1.2rem !important;
+}
+
+.review-edit {
+    margin-top: 1rem;
+}
+
+.review-edit summary {
+    cursor: pointer;
+    display: inline-block;
+    list-style: none;
+}
+
+.review-edit summary::-webkit-details-marker {
+    display: none;
+}
+
+.review-edit-form {
+    background: #fff8f8;
+    border-radius: 0.85rem;
+    margin-top: 0.75rem;
+    padding: 0.9rem;
+}
+
+.review-edit-form .review-submit {
+    margin-top: 0.75rem;
+}
+
+.review-delete-form {
+    display: inline-block;
+    margin-top: 0.75rem;
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        min-height: 5.25rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+}
