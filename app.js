@@ -41,7 +41,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-const secret = process.env.SECRET || "mysupersecretcode";
+const secret = process.env.SECRET ;
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
